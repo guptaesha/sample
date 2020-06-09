@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1">
+	<title>MY TODO</title>
+	<style>
+		body
+		{
+			background-color:#808080;
+			min-width: 250px;
+			margin: 0;
+
+		}
+		ul li
+		{
+			cursor: pointer;
+			padding: 10px 12px 10px 20px;
+			background: #99ff99;
+			font-family: calibri;
+			font-size: 15px;
+			position: relative;
+			list-style-type: none;
+		}
+		ul li:hover
+		{
+			background: #ccffcc;
+		}
+		 -webkit-user-select: none;
+         -moz-user-select: none;
+         -ms-user-select: none;
+          user-select: none;
+        
+        ul li.checked 
+		{
+           background: #888;
+           color: #fff;
+          text-decoration: line-through;
+}
+		ul li.checked::before 
+		{
+           content: '';
+           position: absolute;
+           border-color: black;
+           border-style: solid;
+            border-width: 0 2px 2px 0;
+            top: 10px;
+           left: 16px;
+            transform: rotate(45deg);
+            height: 15px;
+            width: 7px;
+        }
+        *{
+
+        	box-sizing: border-box;
+        }
+
+		.cancel
+		{
+			position: absolute;
+			right: 0;
+			top: 0;
+			padding: 10px 15px 10px 12px;
+		}
+		.cancel:hover
+		{
+			background: #ffe;
+			color: #555;
+		}
+		.todosty
+		{
+			background-color: #3399ff;
+			padding: 30px 40px;
+			color: #ffcc99;
+			text-align: center;	
+		}
+		.todosty:after
+		{
+			content: "";
+			display: table;
+			clear: both;
+		}
+		input
+		{
+			margin: 0;
+			border: 1px;
+			width: 70%;
+			padding: 10px;
+			float: left;
+			font-size: 15px;
+		}
+		.btn1
+		{
+			padding: 10px;
+			width: 15%;
+			background: #ffcc99;
+			color: black;
+			float: left;
+			text-align: center;
+			cursor: pointer;
+			border-radius: 0;
+			transition: 0.3s;
+			}
+		.btn1:hover
+		{
+			background-color:#669999; 
+		}	
+        .btn2
+        {
+            padding: 10px;
+            width: 15%;
+            background: #ffcc99;
+            color: black;
+            float: left;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 0;
+            transition: 0.3s;
+
+        }
+
+	</style>
+
+</head>
+<body>
+     <div id="todo" class="todosty">
+     	<h1 style="margin: 5px">To do list</h1>
+     	<input type="text" id="doinput" placeholder="what do you want to do....">
+     	 <span><button onclick="addelement()" class="btn1">Insert</span></button>
+         <span><button onclick="edit_element()" class="btn2">Edit</button></span>
+     	
+     </div>
+     <ul id="list1">
+     	<li class="checked">Task1</li>
+     	<li>Task2</li>
+     </ul>
+     <script type="text/javascript">
+     	//cancel button and append it to each list
+     	var mylist=document.getElementsByTagName('LI');
+     	var i;
+     	for( i=0;i<mylist.length;i++)
+     	{
+     		var s=document.createElement("SPAN");
+     		var txt=document.createTextNode("\u00D7");
+     		s.className="cancel";
+     		s.appendChild(txt);
+     		mylist[i].appendChild(s);
+     	}
+
+      //deleting the current list
+     	var cancel=document.getElementsByClassName('cancel');
+     	var i;
+     	for (i =0; i<cancel.length; i++)
+     	 {
+     		cancel[i].onclick=function()
+     		{
+     			var d=this.parentElement;
+     			d.style.display="none";
+     		}   		
+         }
+     //inserting element in todolist
+      function  addelement()
+     	 {
+     		var item=document.createElement("li");
+     		var inputvalue= document.getElementById('doinput').value;
+     		var x=document.createTextNode(inputvalue);
+     		item.appendChild(x);
+     		if(inputvalue==="")
+     		{
+     			alert("add your task");
+     		}
+     		else
+     		{
+     			document.getElementById('list1').appendChild(item);
+     		}
+     		document.getElementById('doinput').value="";
+     		var s=document.createElement("SPAN");
+     		var txt=document.createTextNode("\u00D7");
+     		s.className="cancel";
+     		s.appendChild(txt);
+     		item.appendChild(s);
+     		for(i=0;i<cancel.length;i++)
+     		{
+     			cancel[i].onclick=function()
+     			{
+     				var d=this.parentElement;
+     				d.style.display="none";
+
+     			}
+     		}
+     	}
+     	
+     	//text-through when clicking on list item
+             var list = document.querySelector('ul');
+            list.addEventListener('click', function(ev) {
+            if (ev.target.tagName === 'LI') {
+             ev.target.classList.toggle('checked');
+               }
+              }, false);
+            var i;
+            for(i=0;i<mylist.length;i++)
+            {
+            	window.localstorage.setItem("li","")
+            }
+         function edit_element()
+            {
+
+   
+            }
+     </script>
+
+
+</body>
+</html>
